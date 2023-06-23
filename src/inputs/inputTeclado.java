@@ -1,9 +1,13 @@
 package inputs;
 
 import main.PanelJuego;
+import utilz.Constantes;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import static utilz.Constantes.JugandoOnO.*;
+import static utilz.Constantes.ConstantesJugador.*;
 
 public class inputTeclado implements KeyListener {
 
@@ -24,11 +28,45 @@ public class inputTeclado implements KeyListener {
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_1:
+                if(FueraODentro == 2)
+                {
+                    SeleccionJugador = 1;
+                }
                 break;
             case KeyEvent.VK_2:
+                if(FueraODentro == 2)
+                {
+                    SeleccionJugador = 2;
+                }
                 break;
             case KeyEvent.VK_3:
+                if(FueraODentro == 2)
+                {
+                    SeleccionJugador = 3;
+                }
                 break;
+            case KeyEvent.VK_ESCAPE:
+                inicioOnO = 0;
+                Variable1 = 0;
+                FueraODentro = 0;
+                Constantes.Puntuaciones.PuntuacionComputadora = 0;
+                Constantes.Puntuaciones.PuntuacionJugador = 0;
+                SeleccionJugador = 0;
+                break;
+            case KeyEvent.VK_SPACE:
+                if (FueraODentro == 1)
+                {
+                    FueraODentro = 2;
+                }
+                else if (FueraODentro == 3)
+                {
+                    inicioOnO = 0;
+                    Variable1 = 0;
+                    FueraODentro = 0;
+                    Constantes.Puntuaciones.PuntuacionComputadora = 0;
+                    Constantes.Puntuaciones.PuntuacionJugador = 0;
+                    SeleccionJugador = 0;
+                }
         }
     }
 
