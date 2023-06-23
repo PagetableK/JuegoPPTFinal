@@ -1,6 +1,12 @@
 package main;
 
+import inputs.inputMouse;
 import inputs.inputTeclado;
+//import inputs.inputMouse;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,7 +19,8 @@ import java.util.Random;
 
 import static utilz.Constantes.ConstantesJugador.*;
 
-public class PanelJuego extends JPanel {
+public class PanelJuego extends JPanel{
+
 
     private float xDelta = 650, yDelta =250, xDelta1 = 5;
     private BufferedImage img, imgVolteada,botonesimg, puntuacionimg;
@@ -57,7 +64,12 @@ public class PanelJuego extends JPanel {
         for (int j = 0; j < botonesOpcion.length; j++)
             for (int i= 0; i<botonesOpcion.length; i++)
                 botonesOpcion[j][i] = botonesimg.getSubimage(i*48, j*30, 48, 30);
+        //Component miComponente;
+        //miComponente.addMouseListener((MouseListener) this);
+        addMouseListener(new inputMouse(this));
     }
+
+
 
     private void cargarAnimacionesReves() {
         animacionesReves = new BufferedImage[5][7];
@@ -232,4 +244,6 @@ public class PanelJuego extends JPanel {
             xDelta1 += 5;
         }
     }
+
+
 }
