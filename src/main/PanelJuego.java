@@ -215,6 +215,7 @@ public class PanelJuego extends JPanel{
         {
             if (Variable1 == 0)
             {
+                //a
                 xDelta = 650;
                 xDelta1 = 5;
                 aniIndice=0;
