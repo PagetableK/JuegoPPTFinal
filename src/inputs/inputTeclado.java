@@ -1,5 +1,6 @@
 package inputs;
 
+import Audio.ReproductorAudio;
 import main.PanelJuego;
 import utilz.Constantes;
 
@@ -12,7 +13,6 @@ import static utilz.Constantes.ConstantesJugador.*;
 public class inputTeclado implements KeyListener {
 
     private PanelJuego panelJuego;
-
     public inputTeclado(PanelJuego panelJuego)
     {
         this.panelJuego = panelJuego;

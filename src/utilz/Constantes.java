@@ -8,10 +8,6 @@ public class Constantes {
         public static int FueraODentro = 0;
         public static int inicioOnO = 0;
         public static int Variable1 = 0;
-//        public static int prueba = 0;
-//        public static int DentroJuego = 1;
-//        public static int FueraJuego = 0;
-
     }
 
     public static class Puntuaciones

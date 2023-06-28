@@ -9,11 +9,9 @@ import utilz.ProgramaLogica;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,14 +23,15 @@ import static utilz.Constantes.Puntuaciones.*;
 
 public class PanelJuego extends JPanel{
 
-
+    protected  Juego juego;
     private float xDelta = 650, yDelta =250, xDelta1 = 5;
     private BufferedImage img, imgVolteada,botonesimg, puntuacionimg, YouWYLimg, Unosimg;
     private BufferedImage [][] animaciones, animacionesReves, botonesOpcion;
     private BufferedImage [] puntuaciones, YouWYL, UnosAni;
     private int aniTick, Ganador, indiceUnos, tickUnos, variable2, variable3, seleccionPrograma, cambioMano, conteoSeleccion, aniIndice, aniIndiceReves = 2, aniVelocidad, aniTick1, aniTick2, parpadeo, variableTiempo1 = 200, variableTiempo2 =300;
     private int accionJugador = INICIANDO;
-//    private int inicioOno = inicioOnO;
+
+
 
     public PanelJuego()
     {
@@ -77,8 +76,6 @@ public class PanelJuego extends JPanel{
         for (int j = 0; j < botonesOpcion.length; j++)
             for (int i= 0; i<botonesOpcion.length; i++)
                 botonesOpcion[j][i] = botonesimg.getSubimage(i*48, j*30, 48, 30);
-        //Component miComponente;
-        //miComponente.addMouseListener((MouseListener) this);
         addMouseListener(new inputMouse(this));
     }
 
@@ -208,14 +205,10 @@ public class PanelJuego extends JPanel{
     {
         super.paintComponent(g);
 
-
-//        g.drawImage(animaciones[accionJugador][aniIndice], (int)xDelta, (int)yDelta,350,200,null);
-//        g.drawImage(animacionesReves[accionJugador][aniIndice], (int)xDelta1, (int)yDelta,350,200,null);
         if(inicioOnO == 0)
         {
             if (Variable1 == 0)
             {
-                //a
                 xDelta = 650;
                 xDelta1 = 5;
                 aniIndice=0;
@@ -263,7 +256,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 2;
                     aniIndice = 0;
                     variable2++;
-                    System.out.println("Empate!");
                     Ganador = 0;
                 }
                 else if (conteoSeleccion == 202 && seleccionPrograma == 1 && variable3 != 0)
@@ -271,7 +263,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 2;
                     aniIndice = 1;
                     variable2++;
-                    System.out.println("Tu pierdes!");
                     PuntuacionComputadora++;
                     Ganador = 2;
                 }
@@ -280,7 +271,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 2;
                     aniIndice = 2;
                     variable2++;
-                    System.out.println("Tu ganas!");
                     PuntuacionJugador++;
                     Ganador = 1;
                 }
@@ -356,7 +346,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 1;
                     aniIndice = 0;
                     variable2++;
-                    System.out.println("Tu ganas!");
                     PuntuacionJugador++;
                     Ganador = 1;
                 }
@@ -365,7 +354,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 1;
                     aniIndice = 1;
                     variable2++;
-                    System.out.println("Empate!");
                     Ganador = 0;
                 }
                 else if (conteoSeleccion == 202 && seleccionPrograma == 2 && variable3 != 0)
@@ -373,7 +361,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 1;
                     aniIndice = 2;
                     variable2++;
-                    System.out.println("Tu pierdes!");
                     PuntuacionComputadora++;
                     Ganador = 2;
                 }
@@ -449,7 +436,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 0;
                     aniIndice = 0;
                     variable2++;
-                    System.out.println("Tu pierdes!");
                     PuntuacionComputadora++;
                     Ganador = 2;
                 }
@@ -458,7 +444,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 0;
                     aniIndice = 1;
                     variable2++;
-                    System.out.println("Tu ganas!");
                     PuntuacionJugador++;
                     Ganador = 1;
                 }
@@ -467,7 +452,6 @@ public class PanelJuego extends JPanel{
                     aniIndiceReves = 0;
                     aniIndice = 2;
                     variable2++;
-                    System.out.println("Empate!");
                     Ganador = 0;
                 }
                 else if (conteoSeleccion >=203 && conteoSeleccion <=549)
@@ -546,9 +530,10 @@ public class PanelJuego extends JPanel{
             }
             else
             {
-                if (PuntuacionJugador ==3)
+                if (PuntuacionJugador ==7)
                 {
                     FueraODentro = 3;
+//                    juego.getReproductorAudio().pararCancion();
                     g.drawImage(puntuaciones[PuntuacionComputadora], 700,500, 225,38, null);
                     g.drawImage(puntuaciones[PuntuacionJugador], 50,500, 225,38, null);
                     g.drawImage(YouWYL[0], 120,25, 800,150, null);
@@ -566,9 +551,10 @@ public class PanelJuego extends JPanel{
                         parpadeo =0;
                     }
                 }
-                else if (PuntuacionComputadora == 3)
+                else if(PuntuacionComputadora == 7)
                 {
                     FueraODentro = 3;
+//                    juego.getReproductorAudio().pararCancion();
                     g.drawImage(puntuaciones[PuntuacionComputadora], 700,500, 225,38, null);
                     g.drawImage(puntuaciones[PuntuacionJugador], 50,500, 225,38, null);
                     g.drawImage(YouWYL[1], 120,25, 800,150, null);

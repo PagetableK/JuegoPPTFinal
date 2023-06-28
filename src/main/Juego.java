@@ -1,5 +1,7 @@
 package main;
 
+import Audio.ReproductorAudio;
+
 import java.awt.*;
 
 public class Juego implements Runnable{
@@ -8,6 +10,12 @@ public class Juego implements Runnable{
     private PanelJuego panel;
     private Thread hiloJuego;
     private  final int PONER_FPS = 200;
+    public ReproductorAudio reproductorAudio;
+
+    public ReproductorAudio getReproductorAudio() {
+        return reproductorAudio;
+    }
+
     public Juego()
     {
         panel = new PanelJuego();
@@ -15,6 +23,8 @@ public class Juego implements Runnable{
         ventana = new VentanaJuego(panel);
         panel.requestFocus();
         IniciarLoopJuego();
+
+        reproductorAudio = new ReproductorAudio();
     }
 
     private void IniciarLoopJuego()
@@ -44,7 +54,7 @@ public class Juego implements Runnable{
             if(System.currentTimeMillis() - ultimaR >= 1000)
             {
                 ultimaR = System.currentTimeMillis();
-//                System.out.println("FPS: "+frames);
+                System.out.println("FPS: "+frames);
                 frames = 0;
             }
         }

@@ -1,5 +1,6 @@
 package inputs;
 
+import Audio.ReproductorAudio;
 import main.PanelJuego;
 import utilz.Constantes;
 
@@ -13,6 +14,8 @@ import static utilz.Constantes.ConstantesJugador.*;
 public class inputMouse implements MouseListener {
 
     private PanelJuego panelJuego;
+
+    private ReproductorAudio reproductorAudio;
 
     public inputMouse(PanelJuego panelJuego)
     {
@@ -65,7 +68,6 @@ public class inputMouse implements MouseListener {
         }
         else if(x >= EsIzPiedrax && x <= EsDePiedrax && y >= EsIzPiedray && y <= EsDePiedray && FueraODentro == 2)
         {
-//            System.out.println("Piedra");
             SeleccionJugador = 1;
         }
         else if(x >= EsIzPapelx && x <= EsDePapelx && y >= EsIzPapely && y <= EsDePapely && FueraODentro == 2)
@@ -74,7 +76,6 @@ public class inputMouse implements MouseListener {
         }
         else if(x >= EsIzTijerax && x <= EsDeTijerax && y >= EsIzTijeray && y <= EsDeTijeray && FueraODentro == 2)
         {
-//            System.out.println("Tijera");
             SeleccionJugador = 3;
         }
         else if(x >= EsIzReiniciarx && x <= EsDeReiniciarx && y >= EsIzReiniciary && y <= EsDeReiniciary && FueraODentro == 3)
