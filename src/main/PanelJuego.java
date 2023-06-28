@@ -4,7 +4,6 @@ import inputs.inputMouse;
 import inputs.inputTeclado;
 import utilz.Constantes;
 import utilz.ProgramaLogica;
-//import inputs.inputMouse;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,7 +22,7 @@ import static utilz.Constantes.Puntuaciones.*;
 
 public class PanelJuego extends JPanel{
 
-    protected  Juego juego;
+    protected Juego juego;
     private float xDelta = 650, yDelta =250, xDelta1 = 5;
     private BufferedImage img, imgVolteada,botonesimg, puntuacionimg, YouWYLimg, Unosimg;
     private BufferedImage [][] animaciones, animacionesReves, botonesOpcion;
@@ -31,7 +30,7 @@ public class PanelJuego extends JPanel{
     private int aniTick, Ganador, indiceUnos, tickUnos, variable2, variable3, seleccionPrograma, cambioMano, conteoSeleccion, aniIndice, aniIndiceReves = 2, aniVelocidad, aniTick1, aniTick2, parpadeo, variableTiempo1 = 200, variableTiempo2 =300;
     private int accionJugador = INICIANDO;
 
-
+    private ProgramaLogica LogicaSeleccion = new ProgramaLogica();
 
     public PanelJuego()
     {
@@ -205,6 +204,14 @@ public class PanelJuego extends JPanel{
     {
         super.paintComponent(g);
 
+        if (PuntuacionJugador == 0 && PuntuacionComputadora == 0)
+        {
+            LogicaSeleccion.PuntuacionPrograma = 0;
+            LogicaSeleccion.PuntuacionJugador = 0;
+            PuntuacionComputadora = 1;
+            PuntuacionJugador = 1;
+        }
+
         if(inicioOnO == 0)
         {
             if (Variable1 == 0)
@@ -241,7 +248,7 @@ public class PanelJuego extends JPanel{
                 {
                     aniIndice = 0;
                     aniIndiceReves = 2;
-                    seleccionPrograma = ProgramaLogica.SeleccionPrograma();
+                    LogicaSeleccion.SeleccionPrograma = LogicaSeleccion.SeleccionPrograma();
                 }
 
                 g.drawImage(animaciones[accionJugador][aniIndice], (int)xDelta, (int)yDelta,350,200,null);
@@ -251,27 +258,27 @@ public class PanelJuego extends JPanel{
                 {
                     variable3++;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 0 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 0 && variable3 != 0)
                 {
                     aniIndiceReves = 2;
                     aniIndice = 0;
                     variable2++;
                     Ganador = 0;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 1 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 1 && variable3 != 0)
                 {
                     aniIndiceReves = 2;
                     aniIndice = 1;
                     variable2++;
-                    PuntuacionComputadora++;
+                    LogicaSeleccion.PuntuacionPrograma++;
                     Ganador = 2;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 2 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 2 && variable3 != 0)
                 {
                     aniIndiceReves = 2;
                     aniIndice = 2;
                     variable2++;
-                    PuntuacionJugador++;
+                    LogicaSeleccion.PuntuacionJugador++;
                     Ganador = 1;
                 }
                 else if (conteoSeleccion >=203 && conteoSeleccion <=549)
@@ -331,7 +338,7 @@ public class PanelJuego extends JPanel{
                 {
                     aniIndice = 0;
                     aniIndiceReves = 2;
-                    seleccionPrograma = ProgramaLogica.SeleccionPrograma();
+                    LogicaSeleccion.SeleccionPrograma = LogicaSeleccion.SeleccionPrograma();
                 }
 
                 g.drawImage(animaciones[accionJugador][aniIndice], (int)xDelta, (int)yDelta,350,200,null);
@@ -341,27 +348,27 @@ public class PanelJuego extends JPanel{
                 {
                     variable3++;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 0 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 0 && variable3 != 0)
                 {
                     aniIndiceReves = 1;
                     aniIndice = 0;
                     variable2++;
-                    PuntuacionJugador++;
+                    LogicaSeleccion.PuntuacionJugador++;
                     Ganador = 1;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 1 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 1 && variable3 != 0)
                 {
                     aniIndiceReves = 1;
                     aniIndice = 1;
                     variable2++;
                     Ganador = 0;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 2 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 2 && variable3 != 0)
                 {
                     aniIndiceReves = 1;
                     aniIndice = 2;
                     variable2++;
-                    PuntuacionComputadora++;
+                    LogicaSeleccion.PuntuacionPrograma++;
                     Ganador = 2;
                 }
                 else if (conteoSeleccion >=203 && conteoSeleccion <=549)
@@ -421,7 +428,7 @@ public class PanelJuego extends JPanel{
                 {
                     aniIndice = 0;
                     aniIndiceReves = 2;
-                    seleccionPrograma = ProgramaLogica.SeleccionPrograma();
+                    LogicaSeleccion.SeleccionPrograma = LogicaSeleccion.SeleccionPrograma();
                 }
 
                 g.drawImage(animaciones[accionJugador][aniIndice], (int)xDelta, (int)yDelta,350,200,null);
@@ -431,23 +438,24 @@ public class PanelJuego extends JPanel{
                 {
                     variable3++;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 0 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 0 && variable3 != 0)
                 {
                     aniIndiceReves = 0;
                     aniIndice = 0;
                     variable2++;
+                    LogicaSeleccion.PuntuacionPrograma++;
                     PuntuacionComputadora++;
                     Ganador = 2;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 1 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 1 && variable3 != 0)
                 {
                     aniIndiceReves = 0;
                     aniIndice = 1;
                     variable2++;
-                    PuntuacionJugador++;
+                    LogicaSeleccion.PuntuacionJugador++;
                     Ganador = 1;
                 }
-                else if (conteoSeleccion == 202 && seleccionPrograma == 2 && variable3 != 0)
+                else if (conteoSeleccion == 202 && LogicaSeleccion.SeleccionPrograma == 2 && variable3 != 0)
                 {
                     aniIndiceReves = 0;
                     aniIndice = 2;
@@ -530,12 +538,16 @@ public class PanelJuego extends JPanel{
             }
             else
             {
-                if (PuntuacionJugador ==7)
+                if (LogicaSeleccion.PuntuacionJugador ==7)
                 {
+                    if (Variable2 != 6)
+                    {
+                        Variable2 = 4;
+                    }
+
                     FueraODentro = 3;
-//                    juego.getReproductorAudio().pararCancion();
-                    g.drawImage(puntuaciones[PuntuacionComputadora], 700,500, 225,38, null);
-                    g.drawImage(puntuaciones[PuntuacionJugador], 50,500, 225,38, null);
+                    g.drawImage(puntuaciones[LogicaSeleccion.PuntuacionPrograma], 700,500, 225,38, null);
+                    g.drawImage(puntuaciones[LogicaSeleccion.PuntuacionJugador], 50,500, 225,38, null);
                     g.drawImage(YouWYL[0], 120,25, 800,150, null);
                     parpadeo++;
                     if (parpadeo <= variableTiempo1+125)
@@ -551,12 +563,15 @@ public class PanelJuego extends JPanel{
                         parpadeo =0;
                     }
                 }
-                else if(PuntuacionComputadora == 7)
+                else if(LogicaSeleccion.PuntuacionPrograma == 7)
                 {
+                    if (Variable2 != 6)
+                    {
+                        Variable2 = 3;
+                    }
                     FueraODentro = 3;
-//                    juego.getReproductorAudio().pararCancion();
-                    g.drawImage(puntuaciones[PuntuacionComputadora], 700,500, 225,38, null);
-                    g.drawImage(puntuaciones[PuntuacionJugador], 50,500, 225,38, null);
+                    g.drawImage(puntuaciones[LogicaSeleccion.PuntuacionPrograma], 700,500, 225,38, null);
+                    g.drawImage(puntuaciones[LogicaSeleccion.PuntuacionJugador], 50,500, 225,38, null);
                     g.drawImage(YouWYL[1], 120,25, 800,150, null);
                     parpadeo++;
                     if (parpadeo <= variableTiempo1+125)
@@ -579,8 +594,8 @@ public class PanelJuego extends JPanel{
                     g.drawImage(botonesOpcion[1][2], 200,30, 187,125, null);
                     g.drawImage(botonesOpcion[1][0], 415,30, 187,125, null);
                     g.drawImage(botonesOpcion[1][1], 624,30, 187,125, null);
-                    g.drawImage(puntuaciones[PuntuacionComputadora], 700,500, 225,38, null);
-                    g.drawImage(puntuaciones[PuntuacionJugador], 50,500, 225,38, null);
+                    g.drawImage(puntuaciones[LogicaSeleccion.PuntuacionPrograma], 700,500, 225,38, null);
+                    g.drawImage(puntuaciones[LogicaSeleccion.PuntuacionJugador], 50,500, 225,38, null);
                 }
             }
         }
@@ -621,18 +636,4 @@ public class PanelJuego extends JPanel{
             xDelta1 += 5;
         }
     }
-
-//    private void actualizarTickSeleccion() {
-//        aniTick++;
-//        if (aniTick == aniVelocidad && aniIndice <7)
-//        {
-//            aniTick = 0;
-//            aniIndice++;
-//            xDelta -= 5;
-//        }
-//        else if(aniIndice ==6)
-//        {
-//            inicioOno = 1;
-//        }
-//    }
 }

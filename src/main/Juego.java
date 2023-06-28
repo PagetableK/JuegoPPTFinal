@@ -4,27 +4,24 @@ import Audio.ReproductorAudio;
 
 import java.awt.*;
 
+import static utilz.Constantes.JugandoOnO.*;
+
 public class Juego implements Runnable{
 
     private VentanaJuego ventana;
     private PanelJuego panel;
     private Thread hiloJuego;
-    private  final int PONER_FPS = 200;
     public ReproductorAudio reproductorAudio;
 
-    public ReproductorAudio getReproductorAudio() {
-        return reproductorAudio;
-    }
 
     public Juego()
     {
+        reproductorAudio = new ReproductorAudio();
         panel = new PanelJuego();
         panel.setBackground(Color.decode("#88ceeb"));
         ventana = new VentanaJuego(panel);
         panel.requestFocus();
         IniciarLoopJuego();
-
-        reproductorAudio = new ReproductorAudio();
     }
 
     private void IniciarLoopJuego()
@@ -35,28 +32,66 @@ public class Juego implements Runnable{
 
     @Override
     public void run() {
-        double tiempoPFrame = 1000000000.0 / PONER_FPS;
-        long ultimoFrame = System.nanoTime();
-        long ahora = System.nanoTime();
-        int frames = 0;
-        long ultimaR = System.currentTimeMillis();
+        double tiempoPFrame = 1000000000.0 / 175;
+        double tiempoPActu = 1000000000.0 / 200;
 
-        while (true)
-        {
-            ahora = System.nanoTime();
-            if (ahora - ultimoFrame >= tiempoPFrame)
-            {
-                panel.repaint();
-                ultimoFrame = ahora;
-                frames++;
+        long tiempoAnterior = System.nanoTime();
+
+        int frames = 0;
+        int actus = 0;
+        long ultimoCheck = System.currentTimeMillis();
+
+        double deltaU = 0;
+        double deltaF = 0;
+
+        while (true) {
+            long tiempoActual = System.nanoTime();
+
+            deltaU += (tiempoActual - tiempoAnterior) / tiempoPActu;
+            deltaF += (tiempoActual - tiempoAnterior) / tiempoPFrame;
+            tiempoAnterior = tiempoActual;
+
+            if (deltaU >= 1) {
+                if (FueraODentro == 2 && Variable2 == 0)
+                {
+                    Variable2++;
+                    getReproductorAudio().ponerCancion();
+                }
+                else if (FueraODentro == 3 && Variable2 == 4)
+                {
+                    Variable2 = 6;
+                    getReproductorAudio().reproducirSonidoWin();
+                }
+                else if (FueraODentro == 3 && Variable2 == 3)
+                {
+                    Variable2 = 6;
+                    getReproductorAudio().reproducirSonidoFail();
+                }
+                else if (Variable2 == 5)
+                {
+                    getReproductorAudio().pararSonido();
+                    getReproductorAudio().pararCancion();
+                }
+
+                actus++;
+                deltaU--;
             }
 
-            if(System.currentTimeMillis() - ultimaR >= 1000)
-            {
-                ultimaR = System.currentTimeMillis();
-                System.out.println("FPS: "+frames);
+            if (deltaF >= 1) {
+                panel.repaint();
+                frames++;
+                deltaF--;
+            }
+
+            if (System.currentTimeMillis() - ultimoCheck >= 1000) {
+                ultimoCheck = System.currentTimeMillis();
                 frames = 0;
+                actus = 0;
             }
         }
+    }
+
+    public ReproductorAudio getReproductorAudio() {
+        return reproductorAudio;
     }
 }

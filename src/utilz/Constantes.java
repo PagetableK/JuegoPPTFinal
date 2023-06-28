@@ -8,12 +8,13 @@ public class Constantes {
         public static int FueraODentro = 0;
         public static int inicioOnO = 0;
         public static int Variable1 = 0;
+        public static int Variable2 = 0;
     }
 
     public static class Puntuaciones
     {
-        public static int PuntuacionJugador = 0;
-        public static int PuntuacionComputadora = 0;
+        public static int PuntuacionJugador = 1;
+        public static int PuntuacionComputadora = 1;
     }
 
     public static class ConstantesJugador{

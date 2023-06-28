@@ -1,11 +1,13 @@
 package inputs;
 
 import Audio.ReproductorAudio;
+import main.Juego;
 import main.PanelJuego;
 import utilz.Constantes;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.temporal.ValueRange;
 
 import static utilz.Constantes.JugandoOnO.*;
 import static utilz.Constantes.ConstantesJugador.*;
@@ -52,11 +54,13 @@ public class inputTeclado implements KeyListener {
                 Constantes.Puntuaciones.PuntuacionComputadora = 0;
                 Constantes.Puntuaciones.PuntuacionJugador = 0;
                 SeleccionJugador = 0;
+                Variable2 = 5;
                 break;
             case KeyEvent.VK_SPACE:
                 if (FueraODentro == 1)
                 {
                     FueraODentro = 2;
+                    Variable2 = 0;
                 }
                 else if (FueraODentro == 3)
                 {
@@ -66,6 +70,7 @@ public class inputTeclado implements KeyListener {
                     Constantes.Puntuaciones.PuntuacionComputadora = 0;
                     Constantes.Puntuaciones.PuntuacionJugador = 0;
                     SeleccionJugador = 0;
+                    Variable2 = 5;
                 }
         }
     }

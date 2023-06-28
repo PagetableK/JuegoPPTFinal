@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 
+import static utilz.Constantes.JugandoOnO.FueraODentro;
+
 public class ReproductorAudio {
 
-    private Clip[] canciones, sonidoWin;
+    private Clip[] canciones, sonidoWin, sonidoFail;
     private int cancionSonandoId;
     private Random randy = new Random();
 
@@ -19,7 +21,14 @@ public class ReproductorAudio {
     {
         cargarCanciones();
         cargarSonidoWin();
-        ponerCancion();
+        cargarSonidoFail();
+    }
+
+    private void cargarSonidoFail() {
+        String[] sonidoF = {"fail"};
+        sonidoFail = new Clip[sonidoF.length];
+
+        sonidoFail[0] = conseguirClip(sonidoF[0]);
     }
 
     private void cargarCanciones()
@@ -38,7 +47,6 @@ public class ReproductorAudio {
         sonidoWin = new Clip[sonidoW.length];
 
         sonidoWin[0] = conseguirClip(sonidoW[0]);
-
     }
 
     private Clip conseguirClip(String chanson)
@@ -57,14 +65,20 @@ public class ReproductorAudio {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);
         }
-
-//        return null;
     }
 
     public void pararCancion()
     {
         if (canciones[cancionSonandoId].isActive())
             canciones[cancionSonandoId].stop();
+    }
+
+    public void pararSonido()
+    {
+        if (sonidoFail[0].isActive())
+            sonidoFail[0].stop();
+        else if (sonidoWin[0].isActive())
+            sonidoWin[0].stop();
     }
 
     public void ponerCancion()
@@ -78,7 +92,7 @@ public class ReproductorAudio {
         pararCancion();
 
         cancionSonandoId = cancion;
-        canciones[cancion].setMicrosecondPosition(0);
+        canciones[cancion].setMicrosecondPosition(-2);
         canciones[cancion].loop(Clip.LOOP_CONTINUOUSLY);
     }
 
@@ -88,16 +102,13 @@ public class ReproductorAudio {
 
         sonidoWin[0].setMicrosecondPosition(0);
         sonidoWin[0].start();
-//        cancionSonandoId = cancion;
-//        canciones[cancion].setMicrosecondPosition(0);
-//        canciones[cancion].loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-//    private void actualizarVolumen()
-//    {
-//        FloatControl ganarControl = (FloatControl) canciones[cancionSonandoId].getControl(FloatControl.Type.MASTER_GAIN);
-//        float rango = ganarControl.getMaximum() - ganarControl.getMinimum();
-//        float ganancia = (rango * volumen) + ganarControl.getMinimum();
-//        ganarControl.setValue(ganancia);
-//    }
+    public void reproducirSonidoFail()
+    {
+        pararCancion();
+
+        sonidoFail[0].setMicrosecondPosition(1250000);
+        sonidoFail[0].start();
+    }
 }

@@ -65,6 +65,7 @@ public class inputMouse implements MouseListener {
 
         if (x >= EsIzStartx && x <= EsDeStartx && y >= EsIzStarty && y <= EsDeStarty && FueraODentro == 1) {
             FueraODentro = 2;
+            Variable2 = 0;
         }
         else if(x >= EsIzPiedrax && x <= EsDePiedrax && y >= EsIzPiedray && y <= EsDePiedray && FueraODentro == 2)
         {
@@ -86,6 +87,7 @@ public class inputMouse implements MouseListener {
             Constantes.Puntuaciones.PuntuacionComputadora = 0;
             Constantes.Puntuaciones.PuntuacionJugador = 0;
             SeleccionJugador = 0;
+            Variable2 = 5;
         }
     }
 
